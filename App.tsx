@@ -1,131 +1,91 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  BreedScreen,
+  GalleryScreen,
+  MainScreen,
+  ManageBreed,
+  ManagePhotoGallery,
+  ProfileScreen,
+  WelcomeScreen,
+} from './screens';
+import GeneralColors from './constants/colors';
+import BreedContextProvider from './store/breed_context';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+function StackNavigator() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the recommendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
-
-  return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={{title: ' ', headerShown: false}}
       />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
-        </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </View>
+      <Stack.Screen
+        name="GalleryScreen"
+        component={GalleryScreen}
+        options={{
+          title: 'Gallery',
+          headerStyle: {backgroundColor: GeneralColors.lightOrange},
+        }}
+      />
+      <Stack.Screen
+        name="BreedScreen"
+        component={BreedScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: GeneralColors.maroon,
+          },
+          headerTintColor: 'white',
+          title: ' ',
+        }}
+      />
+      <Stack.Screen
+        name="ManageBreed"
+        component={ManageBreed}
+        options={{
+          headerStyle: {backgroundColor: GeneralColors.maroon},
+          headerTintColor: 'white',
+        }}
+      />
+      <Stack.Screen
+        name="ManagePhotoGallery"
+        component={ManagePhotoGallery}
+        options={{
+          title: ' ',
+          headerStyle: {backgroundColor: GeneralColors.maroon},
+          headerTintColor: 'white',
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+function App() {
+  return (
+    <BreedContextProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
+          screenOptions={{
+            headerStyle: {backgroundColor: '#803D3B'},
+            headerTintColor: 'white',
+            drawerContentStyle: {backgroundColor: '#803D3B'},
+            drawerInactiveTintColor: 'white',
+            drawerActiveTintColor: '#322C2B',
+            drawerActiveBackgroundColor: '#E4C59E',
+            sceneStyle: {backgroundColor: '#3f2f25'},
+          }}>
+          <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+          <Drawer.Screen name="Profile" component={ProfileScreen} />
+          <Drawer.Screen name="Main" component={StackNavigator} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </BreedContextProvider>
+  );
+}
 
 export default App;

@@ -1,0 +1,16 @@
+export const BREED_LOCATION = [
+  {key: '1', value: 'Arabian Peninsula'},
+  {key: '2', value: 'England'},
+  {key: '3', value: 'United States'},
+  {key: '4', value: 'Australia'},
+  {key: '5', value: 'Scotland'},
+  {key: '6', value: 'Notherlands'},
+  {key: '8', value: 'Spain'},
+  {key: '9', value: 'Europe'},
+  {key: '10', value: 'Austria'},
+  {key: '11', value: 'Italy'},
+  {key: '12', value: 'Canada'},
+  {key: '13', value: 'Worldwide'},
+  {key: '14', value: 'Iceland'},
+  {key: '15', value: 'France'},
+];
