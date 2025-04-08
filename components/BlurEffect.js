@@ -37,6 +37,7 @@ const BlurEffect = ({children, onPressProp}) => {
               fontSize: 42,
               fontWeight: 'bold',
               color: GeneralColors.maroon,
+              textAlign: 'center',
             }}>
             {children}
           </Text>
@@ -72,6 +73,9 @@ const styles = StyleSheet.create({
   pressableContainer: {
     flex: 1,
     // width:'100%'
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // alignSelf: 'center',
   },
   pressed: {
     opacity: 0.6,
