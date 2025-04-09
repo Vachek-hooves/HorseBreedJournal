@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {ButtonCustom} from './index';
 import GeneralColors from '../constants/colors';
@@ -12,17 +19,26 @@ const UserProfile = ({data, onUpdate}) => {
       <ImageBackground
         source={require('../assets/grass.jpg')}
         style={styles.image}>
-        <View style={styles.blur}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.imageProfile} source={{uri: profileImage}} />
+        <ScrollView>
+          <View style={styles.blur}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.imageProfile}
+                source={
+                  profileImage && typeof profileImage === 'string'
+                    ? {uri: profileImage}
+                    : require('../assets/profile.png')
+                }
+              />
+            </View>
+            <Text style={styles.name}>{data.name}</Text>
+            <View style={styles.buttonContainer}>
+              <ButtonCustom onPress={onUpdate} style={styles.updateButton}>
+                Update Profile
+              </ButtonCustom>
+            </View>
           </View>
-          <Text style={styles.name}>{data.name}</Text>
-          <View style={styles.buttonContainer}>
-            <ButtonCustom onPress={onUpdate} style={styles.updateButton}>
-              Update Profile
-            </ButtonCustom>
-          </View>
-        </View>
+        </ScrollView>
       </ImageBackground>
     </View>
   );

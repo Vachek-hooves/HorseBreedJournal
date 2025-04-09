@@ -21,6 +21,7 @@ const ProfileForm = ({onSubmit, initialData}) => {
     // country: '',
     image: initialData?.image || require('../assets/profile.png'),
   });
+  console.log(inputValues);
 
   useEffect(() => {
     if (initialData) {
@@ -57,6 +58,7 @@ const ProfileForm = ({onSubmit, initialData}) => {
       userId: initialData?.userId || Math.random(),
       image: inputValues.image,
     };
+    console.log(formData);
 
     const nameIsValid = formData.name.trim().length > 0;
 
@@ -83,9 +85,9 @@ const ProfileForm = ({onSubmit, initialData}) => {
         <View style={{alignItems: 'center'}}>
           <Image
             source={
-              typeof imagePreview === 'string'
+              typeof imagePreview === 'string' && imagePreview
                 ? {uri: imagePreview}
-                : imagePreview
+                : require('../assets/profile.png')
             }
             style={{
               width: '90%',
